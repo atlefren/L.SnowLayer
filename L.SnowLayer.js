@@ -8,6 +8,7 @@
         initialize: function (userDrawFunc, options) {
             this._userDrawFunc = userDrawFunc;
             L.setOptions(this, options);
+            this.isStatic = true;
         },
 
         drawing: function (userDrawFunc) {
@@ -52,6 +53,9 @@
             }
 
             this._reset();
+            if (this.isStatic) {
+                this._redrawCanvas();
+            }
         },
 
         onRemove: function (map) {
@@ -84,10 +88,18 @@
         },
 
         _redraw: function () {
+            if (!this.isStatic) {
+                this._redrawCanvas();
+            }
+        },
+
+        _redrawCanvas: function () {
             var size = this._map.getSize();
             var bounds   = this._map.getBounds();
             var zoomScale = (size.x * 180) / (20037508.34  * (bounds.getEast() - bounds.getWest())); // resolution = 1/zoomScale
             var zoom = this._map.getZoom();
+
+            console.log("REDRAW");
 
             if (this._userDrawFunc) {
                 this._userDrawFunc(this, {
