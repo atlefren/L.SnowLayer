@@ -126,9 +126,10 @@
         return new L.CanvasOverlay(userDrawFunc, options);
     };
 
-    function getDrawSnow(color) {
+    function getDrawSnow(color, mp) {
         color = color || 'rgba(255, 255, 255, 0.8)';
-
+        mp = mp || 25; //max particles
+        console.log(mp);
         //snow drawing function from http://thecodeplayer.com/walkthrough/html5-canvas-snow-effect
         return function drawSnow(canvasOverlay, params) {
             var ctx = params.canvas.getContext('2d');
@@ -138,7 +139,7 @@
             var H = window.innerHeight;
 
             //snowflake particles
-            var mp = 25; //max particles
+            
             var particles = [];
             for(var i = 0; i < mp; i++) {
                 particles.push({
@@ -202,8 +203,9 @@
         };
     }
 
-    L.snowLayer = function (color) {
-        return new L.CanvasOverlay(getDrawSnow(color));
+    L.snowLayer = function (options) {
+        console.log(options);
+        return new L.CanvasOverlay(getDrawSnow(options.color, options.maxFlakes));
     };
 
 }());
