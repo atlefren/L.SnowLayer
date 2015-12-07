@@ -99,8 +99,6 @@
             var zoomScale = (size.x * 180) / (20037508.34  * (bounds.getEast() - bounds.getWest())); // resolution = 1/zoomScale
             var zoom = this._map.getZoom();
 
-            console.log("REDRAW");
-
             if (this._userDrawFunc) {
                 this._userDrawFunc(this, {
                     canvas   :this._canvas,
@@ -129,7 +127,6 @@
     function getDrawSnow(color, mp) {
         color = color || 'rgba(255, 255, 255, 0.8)';
         mp = mp || 25; //max particles
-        console.log(mp);
         //snow drawing function from http://thecodeplayer.com/walkthrough/html5-canvas-snow-effect
         return function drawSnow(canvasOverlay, params) {
             var ctx = params.canvas.getContext('2d');
@@ -204,7 +201,6 @@
     }
 
     L.snowLayer = function (options) {
-        console.log(options);
         return new L.CanvasOverlay(getDrawSnow(options.color, options.maxFlakes));
     };
 
